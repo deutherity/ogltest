@@ -1,5 +1,4 @@
 #include "VertexArray.hpp"
-#include <iostream>
 #include <GL/glew.h>
 #include <cassert>
 
@@ -40,8 +39,6 @@ void GLP::VertexArray::pollInfo()
 void GLP::VertexArray::Draw() const
 {
     this->Bind();
-    auto foo = m_indBuf->getSize();
-    std::cout << foo << '\n';
-    glDrawElements(GL_TRIANGLES, foo, GL_UNSIGNED_INT, 0);
+    glDrawElements(GL_TRIANGLES, m_indBuf->getSize(), GL_UNSIGNED_INT, 0);
 }
 

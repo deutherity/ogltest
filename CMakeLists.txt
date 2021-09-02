@@ -1,5 +1,6 @@
 project(gltest)
 
+set(OpenGL_GL_PREFERENCE "GLVND")
 list(APPEND CMAKE_MODULE_PATH "${PROJECT_SOURCE_DIR}/cmakeModules")
 find_package(OpenGL REQUIRED)
 find_package(GLFW3 REQUIRED)

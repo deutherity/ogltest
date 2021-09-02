@@ -143,8 +143,8 @@ int main(void)
 
     float time = 0.0f;
     float incr = 0.01f;
-    vertBuf.Bind();
-    indBuf.Bind();
+    vertBuf.Unbind();
+    indBuf.Unbind();
     int i = 0;
     /* Loop until the user closes the window */
     while (!glfwWindowShouldClose(window) && i < 100)
@@ -158,11 +158,10 @@ int main(void)
             incr = 0.01f;
         time += incr;
 
-        u_Color.setValue(std::sin(time), 1.0f, 0.0f, 1.0f);
+        u_Color.setValue(std::sin(time), std::sin(time + pi * 2 / 3), std::sin(time + pi * 4 / 3), 1.0f);
         vao.Bind();
 
-        glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
-        //rend.Draw(vao);
+        rend.Draw(vao);
 
         /* Swap front and back buffers */
         glfwSwapBuffers(window);
