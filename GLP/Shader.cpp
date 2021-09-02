@@ -2,7 +2,6 @@
 #include <GL/glew.h>
 #include <fstream>
 #include <utility>
-#include <iostream>
 #include <stdexcept>
 #include <cassert>
 
