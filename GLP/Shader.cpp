@@ -93,7 +93,7 @@ namespace GLP
     {}
 
     Shader::Shader(Shader&& other):
-    m_UID(other.m_UID), m_sourcePath(std::move(other.m_sourcePath)), m_status(other.m_status), m_Type(other.m_Type)
+    m_UID(other.m_UID), m_sourcePath(std::move(other.m_sourcePath)), m_Type(other.m_Type), m_status(other.m_status)
     {
         other.m_status = Status::Empty;
     }

@@ -164,6 +164,11 @@ namespace GLP
 {
     void setDebugErrorlevel(debugErrorLevel errorLevel)
     {
+        if (errorLevelNeeded == errorLevel)
+        {
+            return;
+        }
+        
         auto prev = errorLevelNeeded;
         errorLevelNeeded = errorLevel;
         std::cout << "GLP debug level set: "

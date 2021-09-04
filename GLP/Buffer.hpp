@@ -1,5 +1,6 @@
 #pragma once
 #include "GLtypes.hpp"
+#include <array>
 
 
 namespace GLP
@@ -47,14 +48,36 @@ namespace GLP
         bufferId_t m_UID;
         const Type m_type;
         GLsizei m_size = 0;
-        constexpr static GLenum makeUsageHint(FreqHint h1, AccessHint h2);
+        GLsizei m_count = 0;
+        const void * m_data;
+        GLenum m_usageHint;
+        constexpr inline static GLenum makeUsageHint(const FreqHint h1, const AccessHint h2);
         constexpr inline static GLenum makeBindType(Type t_type);
+
+        void initGLbuffer();
 
     public:
         Buffer(Type t_type, const uint dataSize, const void* data,
                const FreqHint h1 = FreqHint::Static,
                const AccessHint h2 = AccessHint::Draw);
         ~Buffer();
+
+        template <typename T, std::size_t size>
+        Buffer(Buffer::Type t_type, const std::array<T, size>& data,
+                        const FreqHint h1 = FreqHint::Static,
+                        const AccessHint h2 = AccessHint::Draw):
+            m_type(t_type),
+            m_size(size * sizeof(T)),
+            m_count(size),
+            m_data(data.data()),
+            m_usageHint(makeUsageHint(h1, h2))
+        {
+            if (t_type == Type::ElementArray)
+            {
+                m_count = size;
+            }
+            initGLbuffer();
+        }
 
         Buffer(const Buffer& other) = delete;
         Buffer(Buffer&& other) = delete;
@@ -63,7 +86,7 @@ namespace GLP
         
         Type getType() const;
         bufferId_t getId() const;
-        GLsizei getSize() const;
+        GLsizei getCount() const;
 
         void Bind() const;
         void Unbind() const;

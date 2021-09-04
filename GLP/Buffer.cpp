@@ -6,19 +6,28 @@
 namespace GLP
 {
     Buffer::Buffer(Buffer::Type t_type, uint size, const void* data,
-                   const FreqHint h1, const AccessHint h2): m_type(t_type)
+                   const FreqHint h1, const AccessHint h2):
+        m_type(t_type),
+        m_size(size),
+        m_data(data),
+        m_usageHint(makeUsageHint(h1, h2))
     {
-        glGenBuffers(1, &m_UID);
-        glBindBuffer(makeBindType(t_type), m_UID);
-        glBufferData(makeBindType(t_type), size, data, makeUsageHint(h1, h2));
-
         if (t_type == Type::ElementArray)
         {
-            m_size = size / sizeof(uint);
+            m_count = size / sizeof(uint);
         }
+        initGLbuffer();
     }
 
-    constexpr GLenum Buffer::makeUsageHint(const FreqHint h1, const AccessHint h2)
+    void Buffer::initGLbuffer()
+    {
+        auto type = makeBindType(m_type);
+        glGenBuffers(1, &m_UID);
+        glBindBuffer(type, m_UID);
+        glBufferData(type, m_size, m_data, m_usageHint);
+    }
+
+    constexpr inline GLenum Buffer::makeUsageHint(const FreqHint h1, const AccessHint h2)
     {
         switch (static_cast<uchar>(h1) * 3 + static_cast<uchar>(h2))
         {
@@ -86,9 +95,9 @@ namespace GLP
         return m_UID;
     }
 
-    GLsizei Buffer::getSize() const
+    GLsizei Buffer::getCount() const
     {
-        return m_size;
+        return m_count;
     }
 
 } // namespace GLP

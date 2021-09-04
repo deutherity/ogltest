@@ -14,7 +14,6 @@ namespace GLP
         {
             Initialized,
             Linked,
-            Used,
             Invalid
         };
 

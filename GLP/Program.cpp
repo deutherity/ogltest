@@ -98,7 +98,6 @@ namespace GLP
         }
         
         glUseProgram(m_UID);
-        m_status = Status::Used;
 
     }
 

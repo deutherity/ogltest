@@ -39,6 +39,6 @@ void GLP::VertexArray::pollInfo()
 void GLP::VertexArray::Draw() const
 {
     this->Bind();
-    glDrawElements(GL_TRIANGLES, m_indBuf->getSize(), GL_UNSIGNED_INT, 0);
+    glDrawElements(GL_TRIANGLES, m_indBuf->getCount(), GL_UNSIGNED_INT, 0);
 }
 
