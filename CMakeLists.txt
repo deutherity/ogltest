@@ -18,13 +18,14 @@ add_subdirectory("GLP")
 
 
 set(SOURCES
-    "main2.cpp"
+    "main.cpp"
     "GLFWapp.cpp"
     "GLFWcontext.cpp"
     "IEntity.cpp"
     "IGLapp.cpp"
     "MyGLapp.cpp"
     "Rectangle.cpp"
+    "Penguin.cpp"
 )
 
 add_executable(test ${SOURCES})

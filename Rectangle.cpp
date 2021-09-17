@@ -12,11 +12,13 @@ static constexpr float pi = 3.1415926f;
 typedef unsigned int uint;
 
 
-static constexpr std::array<float, 4 * 2> positions = {
-    -0.5f, -0.5f,
-     0.5f, -0.5f,
-     0.5f, 0.5f,
-    -0.5f, 0.5f
+static constexpr float x = 0.9f;
+
+static constexpr std::array positions {
+    -x, -x,
+     x, -x,
+     x,  x,
+    -x,  x
     
 };
 
@@ -24,20 +26,6 @@ static constexpr std::array<uint, 2 * 3> indices = {
     0,1,2,
     0,2,3
 };
-
-float pos_[] = {
-    -0.5f, -0.5f,
-     0.5f, -0.5f,
-     0.5f, 0.5f,
-    -0.5f, 0.5f
-    
-    };
-
-    uint ind[] = {
-        0,1,2,
-        0,2,3
-    };
-
 
 class PositLayout: public GLP::IVertexArrayLayout
 {
@@ -81,9 +69,9 @@ void Rectangle::frame()
     m_program.Use();
 
     if (m_time >= pi && m_incr > 0)
-        m_incr = -0.01f;
+        m_incr = -time_step;
     if (m_time <= 0 && m_incr < 0)
-        m_incr = 0.01f;
+        m_incr = time_step;
         
     m_time += m_incr;
     

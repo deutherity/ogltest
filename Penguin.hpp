@@ -1,23 +1,21 @@
 #pragma once
 #include "IEntity.hpp"
-#include "GLP/Uniforms/Uniform4f.hpp"
 #include "GLP/Buffer.hpp"
 #include "GLP/VertexArray.hpp"
+#include "GLP/Texture.hpp"
+#include <memory>
 
 
-class Rectangle: public IEntity
+class Penguin: public IEntity
 {
 private:
-    static constexpr float time_step = 0.01f;
-    GLP::Uniform4f m_colorUniform;
     GLP::Buffer m_vertexBuffer;
     GLP::Buffer m_indexBuffer;
     GLP::VertexArray m_vao;
-    float m_time = 0.0f;
-    float m_incr = time_step;
+    std::unique_ptr<GLP::Texture> m_texture;
 public:
-    Rectangle();
-    ~Rectangle();
+    Penguin();
+    ~Penguin();
     void frame();
     void Draw(GLP::Renderer& renderer) override;
 };
